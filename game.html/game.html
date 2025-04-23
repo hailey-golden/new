@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dice Throwing Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav>
+  <a href="inde"
+</nav>
+  <div class="game-container">
+    <h1>Best of 3 Dice Game</h1>
+
+    <div class="player-score">
+      <p>Player 1 Score: <span id="player1-score">0</span></p>
+      <p>Player 2 Score: <span id="player2-score">0</span></p>
+    </div>
+
+    <div class="dice">
+      <img id="player1-dice" src="https://www.random.org/dice/dice1.png" alt="Player 1 Dice">
+      <img id="player2-dice" src="https://www.random.org/dice/dice1.png" alt="Player 2 Dice">
+    </div>
+
+    <div class="round-result">
+      <p id="round-result">Roll the Dice!</p>
+    </div>
+
+    <button id="roll-button">Roll Dice</button>
+
+    <div class="game-result">
+      <p id="game-result"></p>
+    </div>
+
+    <!-- Replay and Quit buttons (Initially hidden) -->
+    <div id="end-game-actions" class="end-game-actions">
+      <button id="replay-button">Replay</button>
+      <button id="quit-button">Quit</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

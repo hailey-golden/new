@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dice Game - Best of 3</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .dice-area {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+    }
+
+    .player {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .player h2 {
+      margin-bottom: 10px;
+    }
+
+    .dice {
+      font-size: 50px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    .history {
+      margin-top: 30px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .history h3 {
+      margin-bottom: 10px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    ul li {
+      padding: 5px 0;
+      border-bottom: 1px solid #eee;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎲 Best of 3 Dice Game</h1>
+
+  <div class="dice-area">
+    <div class="player" id="player1">
+      <h2>Player 1</h2>
+      <div class="dice" id="dice1">🎲</div>
+      <p>Wins: <span id="score1">0</span></p>
+    </div>
+
+    <div class="player" id="player2">
+      <h2>Player 2</h2>
+      <div class="dice" id="dice2">🎲</div>
+      <p>Wins: <span id="score2">0</span></p>
+    </div>
+  </div>
+
+  <button onclick="rollDice()">Roll Dice</button>
+  <button onclick="resetGame()">Reset Game</button>
+
+  <div class="result" id="resultText">Let’s play!</div>
+
+  <div class="history">
+    <h3>🏆 Scoreboard History</h3>
+    <ul id="historyList">
+      <!-- Game results will appear here -->
+    </ul>
+  </div>
+
+  <script>
+    let score1 = 0;
+    let score2 = 0;
+    let rounds = 0;
+
+    function rollDice() {
+      if (score1 >= 2 || score2 >= 2 || rounds >= 3) return;
+
+      const roll1 = Math.floor(Math.random() * 6) + 1;
+      const roll2 = Math.floor(Math.random() * 6) + 1;
+
+      document.getElementById('dice1').textContent = getDieFace(roll1);
+      document.getElementById('dice2').textContent = getDieFace(roll2);
+
+      let resultText = "";
+
+      if (roll1 > roll2) {
+        score1++;
+        resultText = "Player 1 wins this round!";
+      } else if (roll2 > roll1) {
+        score2++;
+        resultText = "Player 2 wins this round!";
+      } else {
+        resultText = "It's a tie!";
+      }
+
+      rounds++;
+
+      document.getElementById('score1').textContent = score1;
+      document.getElementById('score2').textContent = score2;
+
+      if (score1 === 2) {
+        resultText = "🎉 Player 1 wins the game!";
+        addToHistory("Player 1");
+      } else if (score2 === 2) {
+        resultText = "🎉 Player 2 wins the game!";
+        addToHistory("Player 2");
+      } else if (rounds === 3 && score1 === score2) {
+        resultText = "🤝 It's a draw!";
+        addToHistory("Draw");
+      }
+
+      document.getElementById('resultText').textContent = resultText;
+    }
+
+    function getDieFace(num) {
+      const diceFaces = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
+      return diceFaces[num - 1];
+    }
+
+    function resetGame() {
+      score1 = 0;
+      score2 = 0;
+      rounds = 0;
+      document.getElementById('score1').textContent = 0;
+      document.getElementById('score2').textContent = 0;
+      document.getElementById('dice1').textContent = "🎲";
+      document.getElementById('dice2').textContent = "🎲";
+      document.getElementById('resultText').textContent = "Let’s play!";
+    }
+
+    function addToHistory(winner) {
+      const historyList = document.getElementById('historyList');
+      const newEntry = document.createElement('li');
+      newEntry.textContent = `Game ${historyList.children.length + 1}: ${winner}`;
+      historyList.prepend(newEntry); // adds to the top
+    }
+  </script>
+
+</body>
+</html>
